@@ -19,8 +19,9 @@ const Register = () => {
     setMessage("");
     setMessageType("");
 
+
     try {
-      const response = await axios.post("http://localhost:8000/auth/register", {
+      const response = await axios.post("https://bankingsoftwarebackend.onrender.com", {
         username,
         email,
         password,
