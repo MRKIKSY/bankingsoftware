@@ -331,12 +331,16 @@ const AdminPage = () => {
     fetchWallets();
   }, []);
 
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+
   // ================= API CALLS =================
 
   const fetchUsers = async () => {
     const res = await axios.get(
       "https://bankingsoftwarebackend.onrender.com/admin/users",
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers }
     );
     setUsers(res.data);
   };
@@ -344,7 +348,7 @@ const AdminPage = () => {
   const fetchInvestments = async () => {
     const res = await axios.get(
       "https://bankingsoftwarebackend.onrender.com/admin/investments",
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers }
     );
     setInvestments(res.data);
   };
@@ -352,7 +356,7 @@ const AdminPage = () => {
   const fetchWithdrawals = async () => {
     const res = await axios.get(
       "https://bankingsoftwarebackend.onrender.com/admin/withdrawals",
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers }
     );
     setWithdrawals(res.data);
   };
@@ -360,7 +364,7 @@ const AdminPage = () => {
   const fetchWallets = async () => {
     const res = await axios.get(
       "https://bankingsoftwarebackend.onrender.com/admin/wallets",
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers }
     );
     setWallets(res.data);
   };
@@ -374,7 +378,7 @@ const AdminPage = () => {
     await axios.post(
       "https://bankingsoftwarebackend.onrender.com/admin/credit",
       { username, amount: Number(amount), description },
-      { headers: { Authorization: `Bearer ${token}` } }
+      { headers }
     );
 
     alert("Credit added successfully");
@@ -382,6 +386,27 @@ const AdminPage = () => {
     setAmount("");
     setDescription("");
     fetchUsers();
+  };
+
+  // ================= WITHDRAW ACTIONS =================
+
+  const approveWithdrawal = async (id) => {
+    await axios.post(
+      `https://bankingsoftwarebackend.onrender.com/admin/withdraw/approve/${id}`,
+      {},
+      { headers }
+    );
+    fetchWithdrawals();
+    fetchUsers();
+  };
+
+  const rejectWithdrawal = async (id) => {
+    await axios.post(
+      `https://bankingsoftwarebackend.onrender.com/admin/withdraw/reject/${id}`,
+      {},
+      { headers }
+    );
+    fetchWithdrawals();
   };
 
   const daysRemaining = (maturityDate) => {
@@ -469,9 +494,7 @@ const AdminPage = () => {
               <th className="border p-2">User</th>
               <th className="border p-2">Amount</th>
               <th className="border p-2">Days</th>
-              <th className="border p-2">Expected Return</th>
-              <th className="border p-2">Paid At</th>
-              <th className="border p-2">Maturity</th>
+              <th className="border p-2">Return</th>
               <th className="border p-2">Status</th>
               <th className="border p-2">Days Left</th>
             </tr>
@@ -479,32 +502,14 @@ const AdminPage = () => {
           <tbody>
             {investments.map(inv => {
               const remaining = daysRemaining(inv.maturity_date);
-              const matured = remaining <= 0;
-
               return (
                 <tr key={inv._id}>
                   <td className="border p-2">{inv.user}</td>
                   <td className="border p-2">₦{inv.amount}</td>
                   <td className="border p-2">{inv.days}</td>
                   <td className="border p-2">₦{inv.expected_return}</td>
-                  <td className="border p-2">
-                    {new Date(inv.paid_at).toLocaleString()}
-                  </td>
-                  <td className="border p-2">
-                    {new Date(inv.maturity_date).toLocaleString()}
-                  </td>
-                  <td className="border p-2">
-                    {matured ? (
-                      <span className="text-green-600 font-semibold">
-                        Matured
-                      </span>
-                    ) : (
-                      inv.status
-                    )}
-                  </td>
-                  <td className="border p-2">
-                    {matured ? "0" : remaining}
-                  </td>
+                  <td className="border p-2">{inv.status}</td>
+                  <td className="border p-2">{remaining > 0 ? remaining : 0}</td>
                 </tr>
               );
             })}
@@ -514,9 +519,7 @@ const AdminPage = () => {
 
       {/* ================= WITHDRAWALS ================= */}
       <section>
-        <h2 className="text-xl font-semibold mb-3">
-          Withdrawal Requests & History
-        </h2>
+        <h2 className="text-xl font-semibold mb-3">Withdrawal Requests</h2>
 
         <table className="w-full border">
           <thead className="bg-red-100">
@@ -524,7 +527,7 @@ const AdminPage = () => {
               <th className="border p-2">User</th>
               <th className="border p-2">Amount</th>
               <th className="border p-2">Status</th>
-              <th className="border p-2">Requested At</th>
+              <th className="border p-2">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -532,19 +535,24 @@ const AdminPage = () => {
               <tr key={w._id}>
                 <td className="border p-2">{w.user_id}</td>
                 <td className="border p-2">₦{w.amount}</td>
-                <td className="border p-2">
-                  <span
-                    className={
-                      w.status === "pending"
-                        ? "text-orange-600 font-semibold"
-                        : "text-green-600 font-semibold"
-                    }
-                  >
-                    {w.status}
-                  </span>
-                </td>
-                <td className="border p-2">
-                  {new Date(w.created_at).toLocaleString()}
+                <td className="border p-2">{w.status}</td>
+                <td className="border p-2 space-x-2">
+                  {w.status === "pending" && (
+                    <>
+                      <button
+                        onClick={() => approveWithdrawal(w._id)}
+                        className="bg-green-600 text-white px-3 py-1 rounded"
+                      >
+                        Approve
+                      </button>
+                      <button
+                        onClick={() => rejectWithdrawal(w._id)}
+                        className="bg-red-600 text-white px-3 py-1 rounded"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
@@ -552,16 +560,14 @@ const AdminPage = () => {
         </table>
       </section>
 
-      {/* ================= USER WALLETS ================= */}
+      {/* ================= WALLETS ================= */}
       <section>
-        <h2 className="text-xl font-semibold mb-3">
-          User Wallets & Bank Details
-        </h2>
+        <h2 className="text-xl font-semibold mb-3">User Wallets</h2>
 
         <table className="w-full border">
           <thead className="bg-green-100">
             <tr>
-              <th className="border p-2">Username</th>
+              <th className="border p-2">User</th>
               <th className="border p-2">Bank</th>
               <th className="border p-2">Account Name</th>
               <th className="border p-2">Account Number</th>
@@ -571,9 +577,9 @@ const AdminPage = () => {
             {wallets.map(w => (
               <tr key={w._id}>
                 <td className="border p-2">{w.username}</td>
-                <td className="border p-2">{w.bank_name || "-"}</td>
-                <td className="border p-2">{w.account_name || "-"}</td>
-                <td className="border p-2">{w.account_number || "-"}</td>
+                <td className="border p-2">{w.bank_name}</td>
+                <td className="border p-2">{w.account_name}</td>
+                <td className="border p-2">{w.account_number}</td>
               </tr>
             ))}
           </tbody>
