@@ -6,39 +6,41 @@ export default function Pay({ token, amount, days, percent, onClose }) {
   const [msg, setMsg] = useState("");
 
   async function startPayment() {
-    try {
-      setLoading(true);
-      setMsg("");
+  try {
+    setLoading(true);
+    setMsg("");
 
-      const res = await fetch(`${API}/pay/init`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          amount: Number(amount),
-          days: Number(days),
-          percent: Number(percent)
-        })
-      });
+    const res = await fetch(`${API}/pay/init`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount: Number(amount),
+        days: Number(days),
+        percent: Number(percent)
+      })
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!data.authorization_url) {
-        setMsg("Payment initialization failed");
-        setLoading(false);
-        return;
-      }
-
-      window.open(data.authorization_url, "_blank", "noopener,noreferrer");
+    if (!data.authorization_url) {
+      setMsg("Payment initialization failed");
       setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setMsg("Payment error");
-      setLoading(false);
+      return;
     }
+
+    // ✅ MOBILE + DESKTOP SAFE
+    window.location.href = data.authorization_url;
+
+  } catch (err) {
+    console.error(err);
+    setMsg("Payment error");
+    setLoading(false);
   }
+}
+
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
