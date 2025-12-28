@@ -1,72 +1,91 @@
-import React, { useState, useEffect } from "react";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import AdminPage from "./AdminPage";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import API from "./api";
 
-const API = "https://backendunion.onrender.com";  // <-- use same case everywhere
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import AdminPage from "./pages/AdminPage";
+import PaystackSuccess from "./pages/PaystackSuccess";
 
-function App() {
+export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [me, setMe] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
     fetch(`${API}/me`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(r => {
-        if (!r.ok) throw new Error("Auth failed");
+        if (!r.ok) throw new Error("Unauthorized");
         return r.json();
       })
-      .then(setMe)
+      .then(user => {
+        setMe(user);
+        setLoading(false);
+      })
       .catch(() => {
-        setToken(null);
         localStorage.removeItem("token");
+        setToken(null);
+        setMe(null);
+        setLoading(false);
       });
   }, [token]);
 
-  if (!token) return <Login api={API} onLogin={setToken} />;
+  if (loading || (token && !me)) {
+    return <div className="p-10 text-center">Loading...</div>;
+  }
 
   return (
-    <div style={{ padding: 20, fontFamily: "Arial" }}>
-      {me && (
+    <Routes>
+      {!token ? (
         <>
-         <header className="text-center mt-12 text-sm text-gray-500">
-  &copy; Rabobank Amsterdam
-  <p>
-            Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
-            <button
-              onClick={() => {
-                setToken(null);
-                localStorage.removeItem("token");
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Logout
-            </button>
-          </p>
-</header>
+          <Route path="/login" element={<Login onLogin={setToken} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </>
+      ) : (
+        <>
+          {/* ✅ DASHBOARD */}
+          <Route
+            path="/"
+            element={
+              <>
+                <header className="text-center mt-6 text-sm text-gray-500">
+                  Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
+                  <button
+                    className="ml-3 text-blue-600 underline"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      setToken(null);
+                      setMe(null);
+                    }}
+                  >
+                    Logout
+                  </button>
+                </header>
 
-          {/* <p>
-            Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
-            <button
-              onClick={() => {
-                setToken(null);
-                localStorage.removeItem("token");
-              }}
-              style={{ marginLeft: 10 }}
-            >
-              Logout
-            </button>
-          </p> */}
+                <Dashboard token={token} user={me} />
+                {me.is_admin && <AdminPage token={token} />}
+              </>
+            }
+          />
 
-          <Dashboard api={API} token={token} user={me} />
+          {/* ✅ PAYSTACK CALLBACK ROUTE */}
+          <Route
+            path="/paystack-success"
+            element={<PaystackSuccess token={token} />}
+          />
 
-          {me.is_admin && <AdminPage api={API} token={token} />}
+          <Route path="*" element={<Navigate to="/" />} />
         </>
       )}
-    </div>
+    </Routes>
   );
 }
-
-export default App;
