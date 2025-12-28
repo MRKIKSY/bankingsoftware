@@ -126,6 +126,72 @@ export default function Dashboard({ token, user }) {
           <p className="text-gray-600">Welcome, {user.username}</p>
         </div>
 
+        <div className="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl p-6 shadow-sm">
+  <h2 className="text-lg font-semibold text-indigo-800 mb-3">
+    📌 Platform Rules, Investment Terms & Bonuses
+  </h2>
+
+  <ul className="space-y-3 text-sm text-gray-700 leading-relaxed">
+    <li>
+      <b>1.</b> You are permitted to operate <b>ONLY ONE account</b>, which must be
+      linked to your <b>personal bank details and account number</b>.  
+      <span className="text-red-600 font-semibold">
+        Multiple accounts will result in an immediate and permanent BAN.
+      </span>
+    </li>
+
+    <li>
+      <b>2.</b> You may create <b>multiple investments</b> at any time.  
+      <ul className="list-disc ml-6 mt-1">
+        <li>7-day investments mature exactly <b>7 days</b> after payment confirmation</li>
+        <li>14-day investments mature exactly <b>14 days</b> after payment confirmation</li>
+        <li>21-day investments mature exactly <b>21 days</b> after payment confirmation</li>
+      </ul>
+    </li>
+
+    <li>
+      <b>3.</b> 🎁 <b>₦5,000 SIGN-UP BONUS</b> — when you invest <b>₦20,000</b> or more
+    </li>
+
+    <li>
+      <b>4.</b> 🎁 <b>₦10,000 SIGN-UP BONUS</b> — when you invest <b>₦50,000</b> or more
+    </li>
+
+    <li>
+      <b>5.</b> 🎁 <b>₦15,000 SIGN-UP BONUS</b> — when you invest <b>₦100,000</b> or more
+    </li>
+
+    <li>
+      <b>6.</b> To claim your <b>SIGN-UP BONUS</b>, ensure you have an
+      <b> active investment</b>, then click the link below and message the admin
+      with your <b>username</b>.
+    </li>
+
+    <li className="text-red-700 font-semibold">
+      ⚠️ Withdrawals can ONLY be paid to the bank account you registered with.
+      This is a <b>NO-FRAUD ZONE</b>.
+    </li>
+
+    <li className="text-gray-800 font-medium">
+      By using this platform, you agree not to use our services for any fraudulent
+      or illegal activities.
+    </li>
+  </ul>
+
+  <div className="mt-4">
+  <a
+    href="https://wa.me/447591683924"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block bg-indigo-700 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition"
+  >
+    📩 Contact Admin to Claim Bonus
+  </a>
+</div>
+
+</div>
+
+
         {/* BALANCES */}
         {balance && (
           <div className="grid md:grid-cols-4 gap-4">
