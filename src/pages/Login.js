@@ -80,7 +80,6 @@
 //   );
 // }
 
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
@@ -98,8 +97,13 @@ export default function Login({ onLogin }) {
     try {
       const res = await fetch(`${API}/auth/login`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username.trim(),
+          password,
+        }),
       });
 
       const data = await res.json();
@@ -108,7 +112,7 @@ export default function Login({ onLogin }) {
       localStorage.setItem("token", data.access_token);
       onLogin(data.access_token);
       navigate("/");
-    } catch {
+    } catch (err) {
       setErr("Invalid username or password");
     }
   }
@@ -117,7 +121,7 @@ export default function Login({ onLogin }) {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        {/* INVESTOR INFO – VISIBLE ON MOBILE & DESKTOP */}
+        {/* INVESTOR INFO */}
         <div className="flex flex-col justify-center bg-blue-600 text-white p-6 md:p-8 rounded-xl shadow">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
             Put Your Idle Money to Work
@@ -158,9 +162,14 @@ export default function Login({ onLogin }) {
           )}
 
           <input
+            type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUser(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck="false"
+            inputMode="text"
             className="w-full mb-3 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
@@ -170,11 +179,17 @@ export default function Login({ onLogin }) {
             placeholder="Password"
             value={password}
             onChange={(e) => setPass(e.target.value)}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck="false"
             className="w-full mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             required
           />
 
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
+          >
             Login Securely
           </button>
 
