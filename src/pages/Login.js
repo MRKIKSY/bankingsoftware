@@ -115,32 +115,32 @@ export default function Login({ onLogin }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
-        
-        {/* LEFT SIDE – INVESTOR INFO */}
-        <div className="hidden md:flex flex-col justify-center bg-blue-600 text-white p-8 rounded-xl shadow">
-          <h2 className="text-3xl font-bold mb-4">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        {/* INVESTOR INFO – VISIBLE ON MOBILE & DESKTOP */}
+        <div className="flex flex-col justify-center bg-blue-600 text-white p-6 md:p-8 rounded-xl shadow">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
             Put Your Idle Money to Work
           </h2>
 
-          <p className="text-sm mb-6 opacity-90">
+          <p className="text-sm mb-4 opacity-90">
             Local Naira Invest is a short-term investment platform designed
             to help you grow unused funds with clear, fixed returns.
             No long lock-ins. No complex processes.
           </p>
 
-          <ul className="space-y-3 text-sm">
+          <ul className="space-y-2 text-sm">
             <li>✅ 7 Days → 7% Return</li>
             <li>✅ 14 Days → 14% Return</li>
             <li>✅ 21 Days → 21% Return</li>
           </ul>
 
-          <p className="mt-6 text-xs opacity-80">
+          <p className="mt-4 text-xs opacity-80">
             Simple. Secure. Transparent.
           </p>
         </div>
 
-        {/* RIGHT SIDE – LOGIN FORM */}
+        {/* LOGIN FORM */}
         <form
           onSubmit={submit}
           className="bg-white p-8 rounded-xl shadow w-full max-w-md mx-auto"
