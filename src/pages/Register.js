@@ -22,7 +22,7 @@ const Register = () => {
    
 
     try {
-      const response = await axios.post(" https://bankingsoftwarebackend.onrender.com/auth/register", {
+      const response = await axios.post("https://api.localnairainvest.com/auth/register", {
         username,
         email,
         password,

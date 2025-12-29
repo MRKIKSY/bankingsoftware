@@ -339,7 +339,7 @@ const AdminPage = () => {
 
   const fetchUsers = async () => {
     const res = await axios.get(
-      "https://bankingsoftwarebackend.onrender.com/admin/users",
+      "https://api.localnairainvest.com/admin/users",
       { headers }
     );
     setUsers(res.data);
@@ -347,7 +347,7 @@ const AdminPage = () => {
 
   const fetchInvestments = async () => {
     const res = await axios.get(
-      "https://bankingsoftwarebackend.onrender.com/admin/investments",
+      "https://api.localnairainvest.com/admin/investments",
       { headers }
     );
     setInvestments(res.data);
@@ -355,7 +355,7 @@ const AdminPage = () => {
 
   const fetchWithdrawals = async () => {
     const res = await axios.get(
-      "https://bankingsoftwarebackend.onrender.com/admin/withdrawals",
+      "https://api.localnairainvest.com/admin/withdrawals",
       { headers }
     );
     setWithdrawals(res.data);
@@ -363,7 +363,7 @@ const AdminPage = () => {
 
   const fetchWallets = async () => {
     const res = await axios.get(
-      "https://bankingsoftwarebackend.onrender.com/admin/wallets",
+      "https://api.localnairainvest.com/admin/wallets",
       { headers }
     );
     setWallets(res.data);
@@ -376,7 +376,7 @@ const AdminPage = () => {
     }
 
     await axios.post(
-      "https://bankingsoftwarebackend.onrender.com/admin/credit",
+      "https://api.localnairainvest.com/admin/credit",
       { username, amount: Number(amount), description },
       { headers }
     );
@@ -392,7 +392,7 @@ const AdminPage = () => {
 
   const approveWithdrawal = async (id) => {
     await axios.post(
-      `https://bankingsoftwarebackend.onrender.com/admin/withdraw/approve/${id}`,
+      `https://api.localnairainvest.com/admin/withdraw/approve/${id}`,
       {},
       { headers }
     );
@@ -402,7 +402,7 @@ const AdminPage = () => {
 
   const rejectWithdrawal = async (id) => {
     await axios.post(
-      `https://bankingsoftwarebackend.onrender.com/admin/withdraw/reject/${id}`,
+      `https://api.localnairainvest.com/admin/withdraw/reject/${id}`,
       {},
       { headers }
     );
