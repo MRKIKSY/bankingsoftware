@@ -414,6 +414,23 @@ const AdminPage = () => {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
   };
 
+  const sendReminder = async (username) => {
+  if (!window.confirm(`Send reminder to ${username}?`)) return;
+
+  try {
+    await axios.post(
+      `https://api.localnairainvest.com/admin/remind/${username}`,
+      {},
+      { headers }
+    );
+
+    alert("Reminder sent successfully");
+  } catch (err) {
+    alert("Failed to send reminder");
+  }
+};
+
+
   // ================= UI =================
 
   return (
@@ -468,17 +485,29 @@ const AdminPage = () => {
               <th className="border p-2">Balance</th>
               <th className="border p-2">Credits</th>
               <th className="border p-2">Debits</th>
+              <th className="border p-2">Action</th>
+
             </tr>
           </thead>
           <tbody>
             {users.map(u => (
-              <tr key={u.username}>
-                <td className="border p-2">{u.username}</td>
-                <td className="border p-2">{u.email}</td>
-                <td className="border p-2">₦{u.balance}</td>
-                <td className="border p-2">₦{u.total_credits}</td>
-                <td className="border p-2">₦{u.total_debits}</td>
-              </tr>
+             <tr key={u.username}>
+  <td className="border p-2">{u.username}</td>
+  <td className="border p-2">{u.email}</td>
+  <td className="border p-2">₦{u.balance}</td>
+  <td className="border p-2">₦{u.total_credits}</td>
+  <td className="border p-2">₦{u.total_debits}</td>
+
+  <td className="border p-2">
+    <button
+      onClick={() => sendReminder(u.username)}
+      className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+    >
+      Send Reminder
+    </button>
+  </td>
+</tr>
+
             ))}
           </tbody>
         </table>
