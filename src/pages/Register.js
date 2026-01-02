@@ -6,6 +6,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [signupCode, setSignupCode] = useState("");
   const [accountDetails, setAccountDetails] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
@@ -19,15 +20,17 @@ const Register = () => {
     setMessage("");
     setMessageType("");
 
-   
-
     try {
-      const response = await axios.post("https://api.localnairainvest.com/auth/register", {
-        username,
-        email,
-        password,
-        address: accountDetails,
-      });
+      const response = await axios.post(
+        "https://api.localnairainvest.com/auth/register",
+        {
+          username,
+          email,
+          password,
+          signup_code: signupCode,
+          address: accountDetails
+        }
+      );
 
       if (response.status === 200 || response.status === 201) {
         setMessageType("success");
@@ -36,6 +39,7 @@ const Register = () => {
         setUsername("");
         setEmail("");
         setPassword("");
+        setSignupCode("");
         setAccountDetails("");
 
         setTimeout(() => {
@@ -101,6 +105,15 @@ const Register = () => {
 
           <input
             type="text"
+            placeholder="Signup Code"
+            value={signupCode}
+            onChange={(e) => setSignupCode(e.target.value)}
+            required
+            className="w-full p-2 border rounded"
+          />
+
+          <input
+            type="text"
             placeholder="Bank Account Name & Number"
             value={accountDetails}
             onChange={(e) => setAccountDetails(e.target.value)}
@@ -111,13 +124,12 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        {/* 🔹 LOGIN BUTTON (THIS WILL SHOW) */}
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600 mb-2">
             Already have an account?
