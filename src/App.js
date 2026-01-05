@@ -5,7 +5,7 @@ import API from "./api";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+import ResetPasswordOTP from "./pages/ResetPasswordOTP"; // <-- new
 import Dashboard from "./pages/Dashboard";
 import AdminPage from "./pages/AdminPage";
 import PaystackSuccess from "./pages/PaystackSuccess";
@@ -54,7 +54,7 @@ export default function App() {
           <Route path="/login" element={<Login onLogin={setToken} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/reset-password-otp" element={<ResetPasswordOTP />} /> {/* <-- new */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </>
       )}

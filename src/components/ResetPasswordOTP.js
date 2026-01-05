@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
 
-export default function ResetPassword() {
+export default function ResetPasswordOTP() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
@@ -28,10 +31,11 @@ export default function ResetPassword() {
       });
 
       const data = await res.json();
+
       if (!res.ok) throw new Error(data.detail || "Failed to reset password");
 
-      setMessage("Password reset successful. Redirecting to login...");
-      setTimeout(() => (window.location.href = "/login"), 2000);
+      setMessage("Password reset successful! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       setMessage(err.message || "Something went wrong");
     } finally {
@@ -51,7 +55,7 @@ export default function ResetPassword() {
 
         <input
           type="email"
-          placeholder="Your registered email"
+          placeholder="Your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -60,7 +64,7 @@ export default function ResetPassword() {
 
         <input
           type="text"
-          placeholder="Enter OTP"
+          placeholder="OTP from email"
           value={otp}
           onChange={(e) => setOtp(e.target.value)}
           required
