@@ -4,10 +4,10 @@ import API from "./api";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import AdminPage from "./pages/AdminPage";
 import PaystackSuccess from "./pages/PaystackSuccess";
-import ForgotPassword from "./pages/ForgotPassword";
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -21,13 +21,13 @@ export default function App() {
     }
 
     fetch(`${API}/me`, {
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${token}` },
     })
-      .then(r => {
+      .then((r) => {
         if (!r.ok) throw new Error("Unauthorized");
         return r.json();
       })
-      .then(user => {
+      .then((user) => {
         setMe(user);
         setLoading(false);
       })
@@ -45,21 +45,30 @@ export default function App() {
 
   return (
     <Routes>
-      {!token ? (
+      {/* ===================== */}
+      {/* PUBLIC ROUTES */}
+      {/* ===================== */}
+      {!token && (
         <>
           <Route path="/login" element={<Login onLogin={setToken} />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </>
-      ) : (
+      )}
+
+      {/* ===================== */}
+      {/* PROTECTED ROUTES */}
+      {/* ===================== */}
+      {token && (
         <>
-          {/* ✅ DASHBOARD */}
           <Route
             path="/"
             element={
               <>
                 <header className="text-center mt-6 text-sm text-gray-500">
-                  Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
+                  Logged in as <b>{me.username}</b>{" "}
+                  ({me.is_admin ? "Admin" : "User"})
                   <button
                     className="ml-3 text-blue-600 underline"
                     onClick={() => {
@@ -78,17 +87,13 @@ export default function App() {
             }
           />
 
-          {/* ✅ PAYSTACK CALLBACK ROUTE */}
           <Route
             path="/paystack-success"
             element={<PaystackSuccess token={token} />}
           />
 
           <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-
         </>
-        
       )}
     </Routes>
   );
