@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AdminPage from "./pages/AdminPage";
 import PaystackSuccess from "./pages/PaystackSuccess";
+import ForgotPassword from "./pages/ForgotPassword";
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
@@ -84,7 +85,10 @@ export default function App() {
           />
 
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+
         </>
+        
       )}
     </Routes>
   );

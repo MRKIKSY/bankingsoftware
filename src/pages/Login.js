@@ -192,6 +192,15 @@ export default function Login({ onLogin }) {
           >
             Login Securely
           </button>
+          <div className="text-right mb-4">
+  <Link
+    to="/forgot-password"
+    className="text-sm text-blue-600 hover:underline"
+  >
+    Forgot password?
+  </Link>
+</div>
+
 
           {/* REGISTER LINK */}
           <div className="text-center mt-6">
