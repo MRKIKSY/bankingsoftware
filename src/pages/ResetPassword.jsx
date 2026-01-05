@@ -1,103 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import API from "./api";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import API from "../api";
 
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
-import Dashboard from "./pages/Dashboard";
-import AdminPage from "./pages/AdminPage";
-import PaystackSuccess from "./pages/PaystackSuccess";
+export default function ResetPassword() {
+  const { token } = useParams();
+  const navigate = useNavigate();
 
-export default function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-  const [me, setMe] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    if (!token) {
-      setLoading(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match");
       return;
     }
 
-    fetch(`${API}/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((r) => {
-        if (!r.ok) throw new Error("Unauthorized");
-        return r.json();
-      })
-      .then((user) => {
-        setMe(user);
-        setLoading(false);
-      })
-      .catch(() => {
-        localStorage.removeItem("token");
-        setToken(null);
-        setMe(null);
-        setLoading(false);
-      });
-  }, [token]);
+    setLoading(true);
+    setMessage("");
 
-  if (loading || (token && !me)) {
-    return <div className="p-10 text-center">Loading...</div>;
-  }
+    try {
+      const res = await fetch(`${API}/auth/reset-password/${token}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.detail || "Failed to reset password");
+
+      setMessage("Password reset successful. Redirecting to login...");
+      setTimeout(() => navigate("/login"), 2000);
+    } catch (err) {
+      setMessage(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Routes>
-      {/* ===================== */}
-      {/* PUBLIC ROUTES */}
-      {/* ===================== */}
-      {!token && (
-        <>
-          <Route path="/login" element={<Login onLogin={setToken} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </>
-      )}
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-8 rounded-xl shadow w-full max-w-md"
+      >
+        <h2 className="text-2xl font-bold text-center mb-4">Reset Password</h2>
 
-      {/* ===================== */}
-      {/* PROTECTED ROUTES */}
-      {/* ===================== */}
-      {token && (
-        <>
-          <Route
-            path="/"
-            element={
-              <>
-                <header className="text-center mt-6 text-sm text-gray-500">
-                  Logged in as <b>{me.username}</b>{" "}
-                  ({me.is_admin ? "Admin" : "User"})
-                  <button
-                    className="ml-3 text-blue-600 underline"
-                    onClick={() => {
-                      localStorage.removeItem("token");
-                      setToken(null);
-                      setMe(null);
-                    }}
-                  >
-                    Logout
-                  </button>
-                </header>
+        {message && <p className="text-center mb-4 text-blue-600">{message}</p>}
 
-                <Dashboard token={token} user={me} />
-                {me.is_admin && <AdminPage token={token} />}
-              </>
-            }
-          />
+        <input
+          type="password"
+          placeholder="New password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="w-full p-2 border rounded mb-4"
+        />
 
-          <Route
-            path="/paystack-success"
-            element={<PaystackSuccess token={token} />}
-          />
+        <input
+          type="password"
+          placeholder="Confirm new password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          className="w-full p-2 border rounded mb-4"
+        />
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </>
-      )}
-    </Routes>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded"
+        >
+          {loading ? "Resetting..." : "Reset Password"}
+        </button>
+      </form>
+    </div>
   );
 }
-
