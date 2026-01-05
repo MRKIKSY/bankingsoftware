@@ -49,22 +49,30 @@ export default function App() {
       {/* ===================== */}
       {/* PUBLIC ROUTES */}
       {/* ===================== */}
-      <Route path="/login" element={<Login onLogin={setToken} />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password/:token" element={<ResetPassword />} />
+      {!token && (
+        <>
+          <Route path="/login" element={<Login onLogin={setToken} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          
+          {/* fallback for unknown routes */}
+          <Route path="*" element={<Navigate to="/login" />} />
+        </>
+      )}
 
       {/* ===================== */}
       {/* PROTECTED ROUTES */}
       {/* ===================== */}
-      {token && (
+      {token && me && (
         <>
           <Route
             path="/"
             element={
               <>
                 <header className="text-center mt-6 text-sm text-gray-500">
-                  Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
+                  Logged in as <b>{me.username}</b>{" "}
+                  ({me.is_admin ? "Admin" : "User"})
                   <button
                     className="ml-3 text-blue-600 underline"
                     onClick={() => {
@@ -83,14 +91,15 @@ export default function App() {
             }
           />
 
-          <Route path="/paystack-success" element={<PaystackSuccess token={token} />} />
+          <Route
+            path="/paystack-success"
+            element={<PaystackSuccess token={token} />}
+          />
+
+          {/* fallback for unknown protected routes */}
+          <Route path="*" element={<Navigate to="/" />} />
         </>
       )}
-
-      {/* ===================== */}
-      {/* CATCH-ALL */}
-      {/* ===================== */}
-      <Route path="*" element={<Navigate to={token ? "/" : "/login"} />} />
     </Routes>
   );
 }
