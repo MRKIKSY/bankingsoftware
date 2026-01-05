@@ -55,24 +55,21 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          
-          {/* fallback for unknown routes */}
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </>
       )}
 
       {/* ===================== */}
       {/* PROTECTED ROUTES */}
       {/* ===================== */}
-      {token && me && (
+      {token && (
         <>
           <Route
             path="/"
             element={
               <>
                 <header className="text-center mt-6 text-sm text-gray-500">
-                  Logged in as <b>{me.username}</b>{" "}
-                  ({me.is_admin ? "Admin" : "User"})
+                  Logged in as <b>{me.username}</b> ({me.is_admin ? "Admin" : "User"})
                   <button
                     className="ml-3 text-blue-600 underline"
                     onClick={() => {
@@ -96,8 +93,7 @@ export default function App() {
             element={<PaystackSuccess token={token} />}
           />
 
-          {/* fallback for unknown protected routes */}
-          <Route path="*" element={<Navigate to="/" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </>
       )}
     </Routes>
