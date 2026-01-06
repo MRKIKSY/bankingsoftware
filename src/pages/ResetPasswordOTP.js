@@ -27,12 +27,19 @@ export default function ResetPasswordOTP() {
       const res = await fetch(`${API}/auth/reset-password-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, password }),
+
+        body: JSON.stringify({
+          email: email.trim().toLowerCase(),
+          otp: otp.trim(),
+          password,
+        }),
       });
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.detail || "Failed to reset password");
+      if (!res.ok) {
+        throw new Error(data.detail || "Failed to reset password");
+      }
 
       setMessage("Password reset successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 2000);
@@ -49,9 +56,15 @@ export default function ResetPasswordOTP() {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">Reset Password</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Reset Password
+        </h2>
 
-        {message && <p className="text-center mb-4 text-blue-600">{message}</p>}
+        {message && (
+          <p className="text-center mb-4 text-blue-600">
+            {message}
+          </p>
+        )}
 
         <input
           type="email"
