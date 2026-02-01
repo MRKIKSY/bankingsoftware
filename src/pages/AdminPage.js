@@ -324,7 +324,6 @@ const AdminPage = () => {
   const [investments, setInvestments] = useState([]);
   const [withdrawals, setWithdrawals] = useState([]);
   const [wallets, setWallets] = useState([]);
-  const [userContacts, setUserContacts] = useState([]); // ✅ New state
 
   // Manual credit
   const [username, setUsername] = useState("");
@@ -337,99 +336,110 @@ const AdminPage = () => {
 
   // ================= API CALLS =================
   const fetchUsers = async () => {
-    const res = await axios.get(
-      "https://api.localnairainvest.com/admin/users",
-      { headers }
-    );
-    setUsers(res.data);
-  };
-
-  const fetchInvestments = async () => {
-    const res = await axios.get(
-      "https://api.localnairainvest.com/admin/investments",
-      { headers }
-    );
-    setInvestments(res.data);
-  };
-
-  const fetchWithdrawals = async () => {
-    const res = await axios.get(
-      "https://api.localnairainvest.com/admin/withdrawals",
-      { headers }
-    );
-    setWithdrawals(res.data);
-  };
-
-  const fetchWallets = async () => {
-    const res = await axios.get(
-      "https://api.localnairainvest.com/admin/wallets",
-      { headers }
-    );
-    setWallets(res.data);
-  };
-
-  // ✅ Fetch only name, email, phone
-  const fetchUserContacts = async () => {
     try {
       const res = await axios.get(
-        "https://api.localnairainvest.com/admin/users/contact",
+        "https://api.localnairainvest.com/admin/users",
         { headers }
       );
-      setUserContacts(res.data);
+      setUsers(res.data);
     } catch (err) {
-      console.error("Failed to fetch user contacts:", err);
+      console.error("Failed to fetch users:", err.response?.data || err.message);
     }
   };
 
+  const fetchInvestments = async () => {
+    try {
+      const res = await axios.get(
+        "https://api.localnairainvest.com/admin/investments",
+        { headers }
+      );
+      setInvestments(res.data);
+    } catch (err) {
+      console.error("Failed to fetch investments:", err.response?.data || err.message);
+    }
+  };
+
+  const fetchWithdrawals = async () => {
+    try {
+      const res = await axios.get(
+        "https://api.localnairainvest.com/admin/withdrawals",
+        { headers }
+      );
+      setWithdrawals(res.data);
+    } catch (err) {
+      console.error("Failed to fetch withdrawals:", err.response?.data || err.message);
+    }
+  };
+
+  const fetchWallets = async () => {
+    try {
+      const res = await axios.get(
+        "https://api.localnairainvest.com/admin/wallets",
+        { headers }
+      );
+      setWallets(res.data);
+    } catch (err) {
+      console.error("Failed to fetch wallets:", err.response?.data || err.message);
+    }
+  };
+
+  // ================= EFFECT =================
   useEffect(() => {
     fetchUsers();
     fetchInvestments();
     fetchWithdrawals();
     fetchWallets();
-    fetchUserContacts(); // ✅ Load contacts
   }, []);
 
+  // ================= ACTIONS =================
   const manualCredit = async () => {
     if (!username || !amount) {
       alert("Username and amount required");
       return;
     }
 
-    await axios.post(
-      "https://api.localnairainvest.com/admin/credit",
-      { username, amount: Number(amount), description },
-      { headers }
-    );
-
-    alert("Credit added successfully");
-    setUsername("");
-    setAmount("");
-    setDescription("");
-    fetchUsers();
+    try {
+      await axios.post(
+        "https://api.localnairainvest.com/admin/credit",
+        { username, amount: Number(amount), description },
+        { headers }
+      );
+      alert("Credit added successfully");
+      setUsername("");
+      setAmount("");
+      setDescription("");
+      fetchUsers();
+    } catch (err) {
+      alert("Failed to add credit");
+      console.error(err);
+    }
   };
 
   const approveWithdrawal = async (id) => {
-    await axios.post(
-      `https://api.localnairainvest.com/admin/withdraw/approve/${id}`,
-      {},
-      { headers }
-    );
-    fetchWithdrawals();
-    fetchUsers();
+    try {
+      await axios.post(
+        `https://api.localnairainvest.com/admin/withdraw/approve/${id}`,
+        {},
+        { headers }
+      );
+      fetchWithdrawals();
+      fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const rejectWithdrawal = async (id) => {
-    await axios.post(
-      `https://api.localnairainvest.com/admin/withdraw/reject/${id}`,
-      {},
-      { headers }
-    );
-    fetchWithdrawals();
-  };
-
-  const daysRemaining = (maturityDate) => {
-    const diff = new Date(maturityDate) - new Date();
-    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+    try {
+      await axios.post(
+        `https://api.localnairainvest.com/admin/withdraw/reject/${id}`,
+        {},
+        { headers }
+      );
+      fetchWithdrawals();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const sendReminder = async (username) => {
@@ -444,7 +454,13 @@ const AdminPage = () => {
       alert("Reminder sent successfully");
     } catch (err) {
       alert("Failed to send reminder");
+      console.error(err);
     }
+  };
+
+  const daysRemaining = (maturityDate) => {
+    const diff = new Date(maturityDate) - new Date();
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
   };
 
   // ================= UI =================
@@ -484,7 +500,7 @@ const AdminPage = () => {
         </div>
       </section>
 
-      {/* ================= USERS ================= */}
+      {/* ================= USERS OVERVIEW WITH PHONE ================= */}
       <section>
         <h2 className="text-xl font-semibold mb-3">Users Overview</h2>
         <table className="w-full border">
@@ -492,6 +508,7 @@ const AdminPage = () => {
             <tr>
               <th className="border p-2">Username</th>
               <th className="border p-2">Email</th>
+              <th className="border p-2">Phone</th>
               <th className="border p-2">Balance</th>
               <th className="border p-2">Credits</th>
               <th className="border p-2">Debits</th>
@@ -503,6 +520,7 @@ const AdminPage = () => {
               <tr key={u.username}>
                 <td className="border p-2">{u.username}</td>
                 <td className="border p-2">{u.email}</td>
+                <td className="border p-2">{u.phone || "N/A"}</td>
                 <td className="border p-2">₦{u.balance}</td>
                 <td className="border p-2">₦{u.total_credits}</td>
                 <td className="border p-2">₦{u.total_debits}</td>
@@ -514,29 +532,6 @@ const AdminPage = () => {
                     Send Reminder
                   </button>
                 </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-
-      {/* ================= USER CONTACT INFO ================= */}
-      <section>
-        <h2 className="text-xl font-semibold mb-3">Users Contact Info</h2>
-        <table className="w-full border">
-          <thead className="bg-yellow-100">
-            <tr>
-              <th className="border p-2">Username</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Phone</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userContacts.map(u => (
-              <tr key={u.username}>
-                <td className="border p-2">{u.username}</td>
-                <td className="border p-2">{u.email}</td>
-                <td className="border p-2">{u.phone || "N/A"}</td>
               </tr>
             ))}
           </tbody>
