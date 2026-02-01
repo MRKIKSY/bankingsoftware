@@ -38,7 +38,8 @@ export default function Login({ onLogin }) {
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
 
         {/* INFO PANEL */}
-        <div className="hidden md:flex flex-col justify-between bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-10 rounded-2xl shadow-xl">
+        <div className="flex flex-col justify-between bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-6 md:p-10 rounded-2xl shadow-xl">
+
           <div>
             <h2 className="text-4xl font-bold mb-4">
               Grow Your Idle Money
