@@ -34,61 +34,76 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 px-4">
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
 
         {/* INFO PANEL */}
-        <div className="flex flex-col justify-center bg-blue-600 text-white p-6 rounded-xl shadow">
-          <h2 className="text-3xl font-bold mb-3">
-            Put Your Idle Money to Work
-          </h2>
-          <p className="text-sm mb-4 opacity-90">
-            Local Naira Invest helps grow unused funds with fixed short-term returns.
-          </p>
-          <ul className="space-y-2 text-sm">
-            <li>✅ 7 Days → 7%</li>
-            <li>✅ 14 Days → 14%</li>
-            <li>✅ 21 Days → 21%</li>
-          </ul>
+        <div className="hidden md:flex flex-col justify-between bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-10 rounded-2xl shadow-xl">
+          <div>
+            <h2 className="text-4xl font-bold mb-4">
+              Grow Your Idle Money
+            </h2>
+            <p className="text-sm mb-6 opacity-90">
+              Local Naira Invest helps you earn fixed short-term returns safely and fast.
+            </p>
+
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-2">✅ 7 Days → 7% ROI</li>
+              <li className="flex items-center gap-2">✅ 14 Days → 14% ROI</li>
+              <li className="flex items-center gap-2">✅ 21 Days → 21% ROI</li>
+            </ul>
+          </div>
+
+          {/* SUPPORT BUTTON */}
+          <a
+            href="https://wa.me/447591683924"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-10 inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 transition text-white py-3 rounded-xl font-semibold shadow-lg"
+          >
+            💬 Need Help? Contact Support
+          </a>
         </div>
 
         {/* LOGIN FORM */}
         <form
           onSubmit={submit}
-          className="bg-white p-8 rounded-xl shadow w-full max-w-md mx-auto"
+          className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md mx-auto animate-fadeIn"
         >
-          <h1 className="text-2xl font-bold text-center mb-2">
+          <h1 className="text-3xl font-bold text-center mb-2">
             Welcome Back
           </h1>
 
-          <p className="text-sm text-gray-600 text-center mb-6">
-            Log in to manage your investments
+          <p className="text-sm text-gray-600 text-center mb-8">
+            Log in to manage your investments securely
           </p>
 
           {error && (
-            <p className="text-red-500 text-center mb-3">{error}</p>
+            <p className="text-red-500 text-center mb-4">{error}</p>
           )}
 
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUser(e.target.value)}
-            className="w-full mb-3 p-2 border rounded"
-            required
-          />
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
+              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
+              required
+            />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPass(e.target.value)}
-            className="w-full mb-2 p-2 border rounded"
-            required
-          />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPass(e.target.value)}
+              className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
+              required
+            />
+          </div>
 
-          {/* 👇 FORGOT PASSWORD LINK */}
-          <div className="text-right mb-4">
+          {/* FORGOT */}
+          <div className="text-right mt-3 mb-6">
             <Link
               to="/forgot-password"
               className="text-sm text-blue-600 hover:underline"
@@ -99,23 +114,34 @@ export default function Login({ onLogin }) {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded font-semibold"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-white py-3 rounded-xl font-semibold shadow"
           >
             Login Securely
           </button>
 
           {/* REGISTER */}
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-600 mb-2">
+          <div className="text-center mt-8">
+            <p className="text-sm text-gray-600 mb-3">
               New to Local Naira Invest?
             </p>
+
             <Link
               to="/register"
-              className="inline-block w-full border border-blue-600 text-blue-600 py-2 rounded"
+              className="inline-block w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold"
             >
               Create an Account
             </Link>
           </div>
+
+          {/* MOBILE SUPPORT */}
+          <a
+            href="https://wa.me/447591683924"
+            target="_blank"
+            rel="noreferrer"
+            className="md:hidden mt-6 flex items-center justify-center gap-2 text-green-600 font-semibold"
+          >
+            💬 Contact Support on WhatsApp
+          </a>
         </form>
       </div>
     </div>
