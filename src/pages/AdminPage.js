@@ -504,46 +504,46 @@ const AdminPage = () => {
         </div>
       </section>
 
-      {/* ================= USERS OVERVIEW WITH PHONE ================= */}
-      <section>
-        <h2 className="text-xl font-semibold mb-3">Users Overview</h2>
-        <table className="w-full border">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-2">Username</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Phone</th>
-              <th className="border p-2">Balance</th>
-              <th className="border p-2">Credits</th>
-              <th className="border p-2">Debits</th>
-              <th className="border p-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(u => (
-              <tr key={u.username}>
-                <td className="border p-2">{u.username}</td>
-                <td className="border p-2">{u.email}</td>
-               <td className="border p-2">
-  {u.phone ? u.phone : "N/A"}
-</td>
+     {/* ================= USERS OVERVIEW WITH PHONE ================= */}
+<section>
+  <h2 className="text-xl font-semibold mb-3">Users Overview</h2>
+  <table className="w-full border">
+    <thead className="bg-gray-100">
+      <tr>
+        <th className="border p-2">Username</th>
+        <th className="border p-2">Email</th>
+        <th className="border p-2">Phone</th>       {/* ✅ Added */}
+        <th className="border p-2">Balance</th>
+        <th className="border p-2">Credits</th>
+        <th className="border p-2">Debits</th>
+        <th className="border p-2">Role</th>        {/* Changed from Action to Role */}
+        <th className="border p-2">Action</th>      {/* Optional buttons */}
+      </tr>
+    </thead>
+    <tbody>
+      {users.map(u => (
+        <tr key={u.username}>
+          <td className="border p-2">{u.username}</td>
+          <td className="border p-2">{u.email}</td>
+          <td className="border p-2">{u.phone || "N/A"}</td> {/* ✅ Display phone */}
+          <td className="border p-2">₦{Number(u.balance).toLocaleString()}</td>
+          <td className="border p-2">₦{Number(u.total_credits).toLocaleString()}</td>
+          <td className="border p-2">₦{Number(u.total_debits).toLocaleString()}</td>
+          <td className="border p-2">{u.is_admin ? "Admin" : "User"}</td>
+          <td className="border p-2">
+            <button
+              onClick={() => sendReminder(u.username)}
+              className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Send Reminder
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section>
 
-                <td className="border p-2">₦{u.balance}</td>
-                <td className="border p-2">₦{u.total_credits}</td>
-                <td className="border p-2">₦{u.total_debits}</td>
-                <td className="border p-2">
-                  <button
-                    onClick={() => sendReminder(u.username)}
-                    className="bg-blue-600 text-white px-3 py-1 rounded text-sm"
-                  >
-                    Send Reminder
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
 
       {/* ================= INVESTMENTS ================= */}
       <section>
