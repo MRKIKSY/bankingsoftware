@@ -618,31 +618,6 @@ const AdminPage = () => {
           </tbody>
         </table>
       </section>
-
-      {/* ================= WALLETS ================= */}
-      <section>
-        <h2 className="text-xl font-semibold mb-3">User Wallets</h2>
-        <table className="w-full border">
-          <thead className="bg-green-100">
-            <tr>
-              <th className="border p-2">User</th>
-              <th className="border p-2">Bank</th>
-              <th className="border p-2">Account Name</th>
-              <th className="border p-2">Account Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            {wallets.map(w => (
-              <tr key={w._id}>
-                <td className="border p-2">{w.username}</td>
-                <td className="border p-2">{w.bank_name}</td>
-                <td className="border p-2">{w.account_name}</td>
-                <td className="border p-2">{w.account_number}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
     </div>
   );
 };
