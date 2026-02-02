@@ -345,6 +345,8 @@ const AdminPage = () => {
     } catch (err) {
       console.error("Failed to fetch users:", err.response?.data || err.message);
     }
+    console.log("ADMIN USERS RESPONSE:", res.data);
+
   };
 
   const fetchInvestments = async () => {
@@ -520,7 +522,10 @@ const AdminPage = () => {
               <tr key={u.username}>
                 <td className="border p-2">{u.username}</td>
                 <td className="border p-2">{u.email}</td>
-                <td className="border p-2">{u.phone || "N/A"}</td>
+               <td className="border p-2">
+  {u.phone ? u.phone : "N/A"}
+</td>
+
                 <td className="border p-2">₦{u.balance}</td>
                 <td className="border p-2">₦{u.total_credits}</td>
                 <td className="border p-2">₦{u.total_debits}</td>
