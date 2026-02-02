@@ -335,19 +335,21 @@ const AdminPage = () => {
   };
 
   // ================= API CALLS =================
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.get(
-        "https://api.localnairainvest.com/admin/users",
-        { headers }
-      );
-      setUsers(res.data);
-    } catch (err) {
-      console.error("Failed to fetch users:", err.response?.data || err.message);
-    }
-    console.log("ADMIN USERS RESPONSE:", res.data);
+ const fetchUsers = async () => {
+  try {
+    const res = await axios.get(
+      "https://api.localnairainvest.com/admin/users",
+      { headers }
+    );
 
-  };
+    console.log("ADMIN USERS RESPONSE:", res.data); // ✅ HERE
+
+    setUsers(res.data);
+  } catch (err) {
+    console.error("Failed to fetch users:", err.response?.data || err.message);
+  }
+};
+
 
   const fetchInvestments = async () => {
     try {
