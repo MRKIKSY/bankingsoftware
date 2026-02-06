@@ -446,21 +446,22 @@ const AdminPage = () => {
     }
   };
 
-  const sendReminder = async (username) => {
-    if (!window.confirm(`Send reminder to ${username}?`)) return;
+const sendReminder = async (username) => {
+  if (!window.confirm(`Send reminder to ${username}?`)) return;
 
-    try {
-      await axios.post(
-        "https://api.localnairainvest.com/remind",
-        { username },
-        { headers }
-      );
-      alert("Reminder sent successfully");
-    } catch (err) {
-      alert("Failed to send reminder");
-      console.error(err);
-    }
-  };
+  try {
+    await axios.post(
+      `https://api.localnairainvest.com/admin/remind/${username}`,
+      {},
+      { headers }
+    );
+    alert("Reminder sent successfully");
+  } catch (err) {
+    alert("Failed to send reminder");
+    console.error(err.response?.data || err.message);
+  }
+};
+
 
   const daysRemaining = (maturityDate) => {
     const diff = new Date(maturityDate) - new Date();
