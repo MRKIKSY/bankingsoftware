@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import API from "../api";
 
 export default function ResetPassword() {
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    const emailFromUrl = searchParams.get("email");
+    if (emailFromUrl) {
+      setEmail(emailFromUrl);
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,15 +32,28 @@ export default function ResetPassword() {
     try {
       const res = await fetch(`${API}/auth/reset-password-otp`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, otp, password }),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email,
+          otp,
+          password
+        })
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.detail || "Failed to reset password");
+
+      if (!res.ok) {
+        throw new Error(data.detail || "Failed to reset password");
+      }
 
       setMessage("Password reset successful. Redirecting to login...");
-      setTimeout(() => (window.location.href = "/login"), 2000);
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+
     } catch (err) {
       setMessage(err.message || "Something went wrong");
     } finally {
@@ -45,17 +67,19 @@ export default function ResetPassword() {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-xl shadow w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">Reset Password</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Reset Password
+        </h2>
 
-        {message && <p className="text-center mb-4 text-blue-600">{message}</p>}
+        {message && (
+          <p className="text-center mb-4 text-blue-600">{message}</p>
+        )}
 
         <input
           type="email"
-          placeholder="Your registered email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full p-2 border rounded mb-4"
+          readOnly
+          className="w-full p-2 border rounded mb-4 bg-gray-100"
         />
 
         <input
