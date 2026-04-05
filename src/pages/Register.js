@@ -135,7 +135,7 @@ export default function Register() {
 
           <input
             className="w-full mb-3 p-2 border rounded"
-            placeholder="Signup Code (optional)"
+            placeholder=" Use your full name or Signup Code if you have one"
             value={signupCode}
             onChange={e => setSignupCode(e.target.value)}
           />
