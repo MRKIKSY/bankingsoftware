@@ -133,6 +133,13 @@ export default function Login({ onLogin }) {
               Create an Account
             </Link>
           </div>
+          <div className="mt-6 p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-xl text-sm">
+  <p className="font-semibold mb-1">📢 Notice (5th March 2026)</p>
+  <p>
+    We are currently experiencing temporary issues with our WhatsApp Local Naira Invest groups.
+    We will be back shortly. In the meantime, please click the link below to contact support on an alternative number.
+  </p>
+</div>
 
           {/* MOBILE SUPPORT */}
           <a
