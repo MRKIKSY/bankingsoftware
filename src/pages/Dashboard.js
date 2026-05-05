@@ -180,7 +180,7 @@ export default function Dashboard({ token, user }) {
 
   <div className="mt-4">
   <a
-    href="https://wa.me/2347077513836"
+    href="https://wa.me/447591683924"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block bg-indigo-700 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-800 transition"

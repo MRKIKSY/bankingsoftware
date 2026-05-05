@@ -134,16 +134,16 @@ export default function Login({ onLogin }) {
             </Link>
           </div>
           <div className="mt-6 p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-xl text-sm">
-  <p className="font-semibold mb-1">📢 Notice (5th March 2026)</p>
+  {/* <p className="font-semibold mb-1">📢 Notice (5th March 2026)</p>
   <p>
     We are currently experiencing temporary issues with our WhatsApp Local Naira Invest groups.
     We will be back shortly. In the meantime, please click the link below to contact support on an alternative number.
-  </p>
+  </p> */}
 </div>
 
           {/* MOBILE SUPPORT */}
           <a
-            href="https://wa.me/2347077513836"
+            href="https://wa.me/447591683924"
             target="_blank"
             rel="noreferrer"
             className="md:hidden mt-6 flex items-center justify-center gap-2 text-green-600 font-semibold"
