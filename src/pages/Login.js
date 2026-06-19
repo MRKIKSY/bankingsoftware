@@ -96,8 +96,21 @@ const css = `
     padding: 32px 24px;
   }
   @media (max-width: 768px) {
-    .lni-layout { grid-template-columns: 1fr; padding: 24px 16px; }
-    .lni-left { display: none; }
+    .lni-layout { grid-template-columns: 1fr; padding: 24px 16px; gap: 4px; }
+    .lni-left { padding: 4px 0 0; text-align: center; }
+    .lni-left .lni-brand { justify-content: center; margin-bottom: 28px; }
+    .lni-headline { font-size: clamp(28px, 8vw, 36px); max-width: 380px; margin: 0 auto 14px; }
+    .lni-sub { margin: 0 auto 28px; }
+    .lni-tiers {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -16px 28px;
+      padding: 0 16px 6px;
+    }
+    .lni-tier { flex: 0 0 152px; scroll-snap-align: start; }
+    .lni-support { width: 100%; justify-content: center; }
   }
 
   /* ── LEFT PANEL ── */
@@ -288,14 +301,11 @@ const css = `
     background: linear-gradient(90deg, var(--teal-700), var(--mint-500));
   }
 
-  /* Mobile brand (hidden on desktop) */
+  /* Mobile brand — now redundant since .lni-left shows on mobile too; kept in markup-safe state */
   .lni-mobile-brand {
     display: none;
     text-align: center;
     margin-bottom: 28px;
-  }
-  @media (max-width: 768px) {
-    .lni-mobile-brand { display: block; }
   }
   .lni-mobile-brand .lni-brand-name {
     font-size: 18px;
@@ -477,12 +487,11 @@ const css = `
   }
   .lni-register strong { color: var(--teal-700); }
 
-  /* Mobile support */
+  /* Mobile support — now redundant since .lni-left shows on mobile too; kept in markup-safe state */
   .lni-mobile-support {
     display: none;
     margin-top: 20px;
   }
-  @media (max-width: 768px) { .lni-mobile-support { display: flex; } }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
