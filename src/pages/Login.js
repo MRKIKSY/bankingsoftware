@@ -1,161 +1,3 @@
-// import React, { useState } from "react";
-// import { useNavigate, Link } from "react-router-dom";
-// import API from "../api";
-
-// export default function Login({ onLogin }) {
-//   const navigate = useNavigate();
-//   const [username, setUser] = useState("");
-//   const [password, setPass] = useState("");
-//   const [error, setErr] = useState("");
-
-//   async function submit(e) {
-//     e.preventDefault();
-//     setErr("");
-
-//     try {
-//       const res = await fetch(`${API}/auth/login`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({
-//           username: username.trim(),
-//           password,
-//         }),
-//       });
-
-//       const data = await res.json();
-//       if (!data.access_token) throw new Error();
-
-//       localStorage.setItem("token", data.access_token);
-//       onLogin(data.access_token);
-//       navigate("/");
-//     } catch {
-//       setErr("Invalid username or password");
-//     }
-//   }
-
-//   return (
-//     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 px-4">
-//       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
-
-//         {/* INFO PANEL */}
-//         <div className="flex flex-col justify-between bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-6 md:p-10 rounded-2xl shadow-xl">
-
-//           <div>
-//             <h2 className="text-4xl font-bold mb-4">
-//               Grow Your Idle Money
-//             </h2>
-//             <p className="text-sm mb-6 opacity-90">
-//               Local Naira Invest helps you earn fixed short-term returns safely and fast.
-//             </p>
-
-//             <ul className="space-y-3 text-sm">
-//               <li className="flex items-center gap-2">✅ 7 Days → 7% ROI</li>
-//               <li className="flex items-center gap-2">✅ 14 Days → 14% ROI</li>
-//               <li className="flex items-center gap-2">✅ 21 Days → 21% ROI</li>
-//             </ul>
-//           </div>
-
-//           {/* SUPPORT BUTTON */}
-//           <a
-//             href="https://wa.me/447591683924"
-//             target="_blank"
-//             rel="noreferrer"
-//             className="mt-10 inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 transition text-white py-3 rounded-xl font-semibold shadow-lg"
-//           >
-//             💬 Need Help? Contact Support
-//           </a>
-//         </div>
-
-//         {/* LOGIN FORM */}
-//         <form
-//           onSubmit={submit}
-//           className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md mx-auto animate-fadeIn"
-//         >
-//           <h1 className="text-3xl font-bold text-center mb-2">
-//             Welcome Back
-//           </h1>
-
-//           <p className="text-sm text-gray-600 text-center mb-8">
-//             Log in to manage your investments securely
-//           </p>
-
-//           {error && (
-//             <p className="text-red-500 text-center mb-4">{error}</p>
-//           )}
-
-//           <div className="space-y-4">
-//             <input
-//               type="text"
-//               placeholder="Username"
-//               value={username}
-//               onChange={(e) => setUser(e.target.value)}
-//               className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
-//               required
-//             />
-
-//             <input
-//               type="password"
-//               placeholder="Password"
-//               value={password}
-//               onChange={(e) => setPass(e.target.value)}
-//               className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition"
-//               required
-//             />
-//           </div>
-
-//           {/* FORGOT */}
-//           <div className="text-right mt-3 mb-6">
-//             <Link
-//               to="/forgot-password"
-//               className="text-sm text-blue-600 hover:underline"
-//             >
-//               Forgot password?
-//             </Link>
-//           </div>
-
-//           <button
-//             type="submit"
-//             className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 transition text-white py-3 rounded-xl font-semibold shadow"
-//           >
-//             Login Securely
-//           </button>
-
-//           {/* REGISTER */}
-//           <div className="text-center mt-8">
-//             <p className="text-sm text-gray-600 mb-3">
-//               New to Local Naira Invest?
-//             </p>
-
-//             <Link
-//               to="/register"
-//               className="inline-block w-full border border-blue-600 text-blue-600 hover:bg-blue-50 transition py-3 rounded-xl font-semibold"
-//             >
-//               Create an Account
-//             </Link>
-//           </div>
-//           <div className="mt-6 p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded-xl text-sm">
-//   {/* <p className="font-semibold mb-1">📢 Notice (5th March 2026)</p>
-//   <p>
-//     We are currently experiencing temporary issues with our WhatsApp Local Naira Invest groups.
-//     We will be back shortly. In the meantime, please click the link below to contact support on an alternative number.
-//   </p> */}
-// </div>
-
-//           {/* MOBILE SUPPORT */}
-//           <a
-//             href="https://wa.me/2347077513836"
-//             target="_blank"
-//             rel="noreferrer"
-//             className="md:hidden mt-6 flex items-center justify-center gap-2 text-green-600 font-semibold"
-//           >
-//             💬 Contact Support on WhatsApp
-//           </a>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
 
 
 
@@ -166,21 +8,42 @@ import API from "../api";
 
 /* ─── Inline styles & keyframes injected once ─────────────────────── */
 const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   .lni-root {
+    --bg: #F6F9F7;
+    --surface: #FFFFFF;
+    --surface-muted: #F1F6F4;
+    --border: #E2E9E5;
+    --border-strong: #C9D8D1;
+    --ink: #111E1A;
+    --ink-soft: #57685F;
+    --ink-faint: #8FA39B;
+    --teal-900: #0B4A42;
+    --teal-700: #0E6B5F;
+    --teal-600: #128270;
+    --mint-500: #28B894;
+    --mint-200: #D6EFE6;
+    --mint-100: #ECF8F2;
+    --danger: #B5453A;
+    --danger-bg: #FBEAE7;
+    --danger-border: #F1CCC5;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
     min-height: 100vh;
     display: flex;
     align-items: stretch;
-    font-family: 'DM Sans', sans-serif;
-    background: #060a12;
+    font-family: var(--font-body);
+    background: var(--bg);
     overflow: hidden;
     position: relative;
   }
 
-  /* ── Animated mesh background ── */
+  /* ── Ambient background — one calm halo, no drift, no grain ── */
   .lni-bg {
     position: fixed;
     inset: 0;
@@ -190,43 +53,33 @@ const css = `
   .lni-bg::before {
     content: '';
     position: absolute;
-    width: 900px; height: 900px;
+    width: 760px; height: 760px;
     border-radius: 50%;
-    background: radial-gradient(circle, #1a4fd640 0%, transparent 70%);
-    top: -300px; left: -200px;
-    animation: drift1 18s ease-in-out infinite alternate;
+    background: radial-gradient(circle, var(--mint-100) 0%, transparent 70%);
+    top: -280px; right: -220px;
+    opacity: 0.9;
   }
   .lni-bg::after {
     content: '';
     position: absolute;
-    width: 700px; height: 700px;
+    width: 520px; height: 520px;
     border-radius: 50%;
-    background: radial-gradient(circle, #06b6d420 0%, transparent 70%);
-    bottom: -200px; right: -100px;
-    animation: drift2 22s ease-in-out infinite alternate;
+    background: radial-gradient(circle, #E8F3EE 0%, transparent 72%);
+    bottom: -200px; left: -160px;
   }
-  .lni-blob3 {
-    position: absolute;
-    width: 500px; height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #7c3aed18 0%, transparent 70%);
-    top: 40%; left: 30%;
-    animation: drift3 15s ease-in-out infinite alternate;
-  }
+  .lni-blob3 { display: none; }
 
-  @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(60px, 40px) scale(1.1); } }
-  @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-50px,-30px) scale(1.08); } }
-  @keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,-50px) scale(0.95); } }
-
-  /* Noise grain overlay */
+  /* Faint dot grid instead of grain — quiet, technical texture */
   .lni-grain {
     position: fixed;
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
+    opacity: 0.5;
+    background-image: radial-gradient(circle, #C9D8D1 1px, transparent 1px);
+    background-size: 28px 28px;
+    -webkit-mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 65%);
+            mask-image: radial-gradient(circle at 50% 35%, #000 0%, transparent 65%);
   }
 
   /* ── Layout ── */
@@ -234,10 +87,10 @@ const css = `
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1120px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
     gap: 0;
     padding: 32px 24px;
@@ -249,120 +102,142 @@ const css = `
 
   /* ── LEFT PANEL ── */
   .lni-left {
-    padding: 48px 40px 48px 24px;
-    animation: fadeUp 0.8s ease both;
+    padding: 48px 48px 48px 24px;
+    animation: fadeUp 0.6s ease both;
   }
 
   .lni-brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 52px;
+    margin-bottom: 56px;
   }
   .lni-brand-icon {
-    width: 38px; height: 38px;
+    width: 36px; height: 36px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    background: linear-gradient(135deg, var(--teal-900), var(--teal-700));
     display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
+    font-size: 16px;
   }
   .lni-brand-name {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 600;
     font-size: 15px;
-    color: #ffffff;
-    letter-spacing: -0.3px;
+    color: var(--ink);
+    letter-spacing: -0.2px;
   }
-  .lni-brand-name span { color: #38bdf8; }
+  .lni-brand-name span { color: var(--mint-500); }
 
   .lni-headline {
-    font-family: 'Sora', sans-serif;
-    font-size: clamp(34px, 4vw, 48px);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #ffffff;
-    letter-spacing: -1.5px;
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 600;
+    line-height: 1.14;
+    color: var(--ink);
+    letter-spacing: -1px;
     margin-bottom: 18px;
   }
   .lni-headline em {
     font-style: normal;
-    background: linear-gradient(90deg, #38bdf8, #818cf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    position: relative;
+    display: inline-block;
+    background: var(--mint-200);
+    padding: 1px 8px 3px;
+    border-radius: 6px;
+    transform: rotate(-1deg);
   }
 
   .lni-sub {
     font-size: 15px;
-    color: #94a3b8;
+    color: var(--ink-soft);
     line-height: 1.65;
-    margin-bottom: 44px;
-    max-width: 340px;
+    margin-bottom: 36px;
+    max-width: 380px;
   }
 
-  /* Tier cards */
+  /* Tier cards — boarding-pass style stubs, laid out in a row */
   .lni-tiers {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 44px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
   }
   .lni-tier {
+    flex: 1 1 140px;
     display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 14px;
-    padding: 14px 18px;
-    transition: border-color 0.2s, background 0.2s;
-    cursor: default;
+    padding: 16px 14px;
+    position: relative;
+    overflow: visible;
+    transition: border-color 0.2s, transform 0.2s;
   }
   .lni-tier:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(56,189,248,0.3);
+    border-color: var(--teal-600);
+    transform: translateY(-2px);
   }
   .lni-tier-badge {
-    width: 44px; height: 44px;
-    border-radius: 12px;
+    width: 30px; height: 30px;
+    border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Sora', sans-serif;
+    font-family: var(--font-mono);
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 12px;
     flex-shrink: 0;
   }
-  .badge-7  { background: rgba(56,189,248,0.15); color: #38bdf8; }
-  .badge-14 { background: rgba(99,102,241,0.15); color: #818cf8; }
-  .badge-21 { background: rgba(52,211,153,0.15); color: #34d399; }
+  .badge-7  { background: var(--mint-100); color: var(--teal-700); }
+  .badge-14 { background: #DCF1E7; color: #0E5A50; }
+  .badge-21 { background: var(--mint-200); color: var(--teal-900); }
 
-  .lni-tier-info { flex: 1; }
+  .lni-tier-info {
+    position: relative;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+    border-bottom: 1.5px dashed var(--border-strong);
+  }
+  /* perforation notches where the stub "tears" */
+  .lni-tier-info::before,
+  .lni-tier-info::after {
+    content: '';
+    position: absolute;
+    bottom: -7px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .lni-tier-info::before { left: -21px; }
+  .lni-tier-info::after  { right: -21px; }
+
   .lni-tier-label {
     font-size: 13px;
     font-weight: 500;
-    color: #cbd5e1;
-    margin-bottom: 2px;
+    color: var(--ink);
+    margin-bottom: 3px;
   }
-  .lni-tier-desc { font-size: 11px; color: #64748b; }
+  .lni-tier-desc { font-size: 11px; color: var(--ink-faint); }
 
   .lni-tier-roi {
-    font-family: 'Sora', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 600;
     letter-spacing: -0.5px;
   }
-  .roi-7  { color: #38bdf8; }
-  .roi-14 { color: #818cf8; }
-  .roi-21 { color: #34d399; }
+  .roi-7  { color: var(--teal-600); }
+  .roi-14 { color: #0E5A50; }
+  .roi-21 { color: var(--teal-900); }
 
   /* Support CTA */
   .lni-support {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(37,211,102,0.1);
-    border: 1px solid rgba(37,211,102,0.25);
-    color: #4ade80;
+    background: var(--mint-100);
+    border: 1px solid var(--mint-200);
+    color: var(--teal-700);
     padding: 11px 20px;
     border-radius: 12px;
     font-size: 13px;
@@ -371,18 +246,18 @@ const css = `
     transition: background 0.2s, border-color 0.2s;
   }
   .lni-support:hover {
-    background: rgba(37,211,102,0.18);
-    border-color: rgba(37,211,102,0.4);
+    background: var(--mint-200);
+    border-color: var(--border-strong);
   }
   .lni-support-dot {
     width: 7px; height: 7px;
     border-radius: 50%;
-    background: #4ade80;
-    animation: pulse 2s ease-in-out infinite;
+    background: var(--mint-500);
+    animation: pulse 2.2s ease-in-out infinite;
   }
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.7); }
+    50% { opacity: 0.45; transform: scale(0.7); }
   }
 
   /* ── RIGHT PANEL (form) ── */
@@ -391,28 +266,26 @@ const css = `
     align-items: center;
     justify-content: center;
     padding: 24px;
-    animation: fadeUp 0.8s 0.1s ease both;
+    animation: fadeUp 0.6s 0.08s ease both;
   }
 
   .lni-card {
     width: 100%;
     max-width: 420px;
-    background: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
     padding: 40px 36px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+    box-shadow: 0 16px 40px -16px rgba(11,74,66,0.16);
     position: relative;
     overflow: hidden;
   }
   .lni-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 50%;
-    transform: translateX(-50%);
-    width: 60%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.5), transparent);
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--teal-700), var(--mint-500));
   }
 
   /* Mobile brand (hidden on desktop) */
@@ -432,16 +305,16 @@ const css = `
   }
 
   .lni-card-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: #f1f5f9;
-    letter-spacing: -0.5px;
+    font-family: var(--font-display);
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.4px;
     margin-bottom: 6px;
   }
   .lni-card-sub {
     font-size: 13px;
-    color: #64748b;
+    color: var(--ink-faint);
     margin-bottom: 32px;
     line-height: 1.5;
   }
@@ -451,9 +324,9 @@ const css = `
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(239,68,68,0.1);
-    border: 1px solid rgba(239,68,68,0.25);
-    color: #f87171;
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    color: var(--danger);
     padding: 10px 14px;
     border-radius: 10px;
     font-size: 13px;
@@ -472,9 +345,10 @@ const css = `
   }
   .lni-field label {
     display: block;
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
     font-weight: 500;
-    color: #64748b;
+    color: var(--ink-faint);
     letter-spacing: 0.5px;
     text-transform: uppercase;
     margin-bottom: 7px;
@@ -487,31 +361,31 @@ const css = `
   .lni-input-icon {
     position: absolute;
     left: 14px;
-    color: #475569;
+    color: var(--ink-faint);
     font-size: 15px;
     pointer-events: none;
     transition: color 0.2s;
   }
   .lni-input {
     width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px 14px 13px 42px;
     font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    color: #f1f5f9;
+    font-family: var(--font-body);
+    color: var(--ink);
     outline: none;
     transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
   }
-  .lni-input::placeholder { color: #334155; }
+  .lni-input::placeholder { color: #A9BAB3; }
   .lni-input:focus {
-    border-color: rgba(56,189,248,0.4);
-    background: rgba(255,255,255,0.06);
-    box-shadow: 0 0 0 3px rgba(56,189,248,0.08);
+    border-color: var(--teal-600);
+    background: var(--surface);
+    box-shadow: 0 0 0 3px var(--mint-100);
   }
   .lni-input:focus + .lni-input-icon,
-  .lni-input-wrap:focus-within .lni-input-icon { color: #38bdf8; }
+  .lni-input-wrap:focus-within .lni-input-icon { color: var(--teal-700); }
 
   /* Forgot */
   .lni-forgot {
@@ -521,41 +395,34 @@ const css = `
   }
   .lni-forgot a {
     font-size: 12px;
-    color: #38bdf8;
+    color: var(--teal-700);
     text-decoration: none;
-    opacity: 0.8;
+    opacity: 0.85;
     transition: opacity 0.15s;
   }
-  .lni-forgot a:hover { opacity: 1; }
+  .lni-forgot a:hover { opacity: 1; text-decoration: underline; }
 
   /* Submit button */
   .lni-btn {
     width: 100%;
     position: relative;
-    background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    background: var(--teal-700);
     color: #fff;
     border: none;
     border-radius: 12px;
     padding: 14px;
     font-size: 14px;
-    font-family: 'Sora', sans-serif;
+    font-family: var(--font-display);
     font-weight: 600;
     letter-spacing: 0.2px;
     cursor: pointer;
     overflow: hidden;
-    transition: opacity 0.2s, transform 0.15s;
-    box-shadow: 0 4px 24px rgba(37,99,235,0.35);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 10px 24px -10px rgba(14,107,95,0.55);
   }
-  .lni-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
-    pointer-events: none;
-  }
-  .lni-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+  .lni-btn:hover { background: var(--teal-600); transform: translateY(-1px); }
   .lni-btn:active { transform: translateY(0); }
-  .lni-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .lni-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
   .lni-btn-loading {
     display: inline-flex;
@@ -564,7 +431,7 @@ const css = `
   }
   .lni-spinner {
     width: 14px; height: 14px;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 2px solid rgba(255,255,255,0.35);
     border-top-color: #fff;
     border-radius: 50%;
     animation: spin 0.6s linear infinite;
@@ -578,8 +445,14 @@ const css = `
     gap: 12px;
     margin: 24px 0;
   }
-  .lni-divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.07); }
-  .lni-divider span { font-size: 11px; color: #334155; letter-spacing: 0.5px; }
+  .lni-divider-line { flex: 1; height: 1px; background: var(--border); }
+  .lni-divider span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
 
   /* Register link */
   .lni-register {
@@ -587,22 +460,22 @@ const css = `
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px;
     text-decoration: none;
     font-size: 13px;
     font-weight: 500;
-    color: #94a3b8;
+    color: var(--ink-soft);
     transition: background 0.2s, border-color 0.2s, color 0.2s;
   }
   .lni-register:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(56,189,248,0.25);
-    color: #e2e8f0;
+    background: var(--mint-100);
+    border-color: var(--border-strong);
+    color: var(--ink);
   }
-  .lni-register strong { color: #38bdf8; }
+  .lni-register strong { color: var(--teal-700); }
 
   /* Mobile support */
   .lni-mobile-support {
@@ -612,7 +485,7 @@ const css = `
   @media (max-width: 768px) { .lni-mobile-support { display: flex; } }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 `;
