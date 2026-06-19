@@ -150,15 +150,15 @@ export default function Dashboard({ token, user }) {
     </li>
 
     <li>
-      <b>3.</b> 🎁 <b>₦5,000 SIGN-UP BONUS</b> — when you invest <b>₦20,000</b> or more
+      <b>3.</b> 🎁 <b>₦5,000 SIGN-UP BONUS</b> — when you invest <b>₦120,000</b> or more
     </li>
 
     <li>
-      <b>4.</b> 🎁 <b>₦10,000 SIGN-UP BONUS</b> — when you invest <b>₦50,000</b> or more
+      <b>4.</b> 🎁 <b>₦10,000 SIGN-UP BONUS</b> — when you invest <b>₦150,000</b> or more
     </li>
 
     <li>
-      <b>5.</b> 🎁 <b>₦15,000 SIGN-UP BONUS</b> — when you invest <b>₦100,000</b> or more
+      <b>5.</b> 🎁 <b>₦20,000 SIGN-UP BONUS</b> — when you invest <b>₦200,000</b> or more
     </li>
 
     <li>
