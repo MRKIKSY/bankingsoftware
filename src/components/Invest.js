@@ -2,7 +2,7 @@ export default function Invest({ onClose, onSelect }) {
   return (
     <div className="bg-white rounded-xl p-6 w-full max-w-sm">
       <h2 className="font-bold mb-4">Choose Investment Plan</h2>
-
+{/* 
       <button
         onClick={() => onSelect(7, 7)}
         className="w-full mb-2 bg-blue-600 text-white py-2 rounded"
@@ -15,7 +15,7 @@ export default function Invest({ onClose, onSelect }) {
         className="w-full mb-2 bg-indigo-600 text-white py-2 rounded"
       >
         14 Days · 14%
-      </button>
+      </button> */}
 
       <button
         onClick={() => onSelect(21, 21)}
