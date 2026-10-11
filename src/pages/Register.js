@@ -539,7 +539,7 @@ export default function Register() {
               <div className="nx-plan-desc">Fixed interest paid at the end of 21 days</div>
             </div>
             <div className="nx-plan-rate">
-              <b>0.2%</b>
+              <b>21%</b>
               <small>interest</small>
             </div>
           </div>
